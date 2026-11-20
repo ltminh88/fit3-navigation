@@ -110,21 +110,59 @@ function turnDiffDeg(from, to) {
 // width, core color, core width]; originX/originY is the screen
 // position of the map origin, mapOriginX/mapOriginY the map point
 // shown there.
-function drawRoads(roads, levels, ctx, cosH, sinH, originX, originY,
+// indices is the list of road indexes to draw (null = all roads).
+function drawRoads(roads, levels, indices, ctx, cosH, sinH, originX, originY,
     metresPerPixel, mapOriginX, mapOriginY, majorStyle, minorStyle) {
-    var i, style;
-    for (i = 0; i < roads.length; i++) {
+    var i, k, style;
+    for (k = 0; k < (indices === null ? roads.length : indices.length); k++) {
+        i = indices === null ? k : indices[k];
         style = levels[i] === 'major' ? majorStyle : minorStyle;
         ctx.strokeStyle = style[0]; ctx.lineWidth = style[1];
         drawPolyline(roads[i], ctx, cosH, sinH, originX, originY,
             metresPerPixel, mapOriginX, mapOriginY);
     }
-    for (i = 0; i < roads.length; i++) {
+    for (k = 0; k < (indices === null ? roads.length : indices.length); k++) {
+        i = indices === null ? k : indices[k];
         style = levels[i] === 'major' ? majorStyle : minorStyle;
         ctx.strokeStyle = style[2]; ctx.lineWidth = style[3];
         drawPolyline(roads[i], ctx, cosH, sinH, originX, originY,
             metresPerPixel, mapOriginX, mapOriginY);
     }
+}
+
+// Bounding box of each road as a flat array [minX, minY, maxX, maxY]
+// per road, built once at init so the per-frame filter is cheap.
+function buildRoadBboxes(roads) {
+    var out = [];
+    var i, j, minX, minY, maxX, maxY;
+    for (i = 0; i < roads.length; i++) {
+        minX = roads[i][0]; minY = roads[i][1];
+        maxX = roads[i][0]; maxY = roads[i][1];
+        for (j = 2; j < roads[i].length; j += 2) {
+            if (roads[i][j] < minX) { minX = roads[i][j]; }
+            if (roads[i][j] > maxX) { maxX = roads[i][j]; }
+            if (roads[i][j + 1] < minY) { minY = roads[i][j + 1]; }
+            if (roads[i][j + 1] > maxY) { maxY = roads[i][j + 1]; }
+        }
+        out.push(minX, minY, maxX, maxY);
+    }
+    return out;
+}
+
+// Fill out[] with the indexes of roads whose bbox is within radius
+// metres of (posX, posY); returns the count. out is reused per frame.
+function filterVisibleRoads(bboxes, roadCount, posX, posY, radius, out) {
+    var i, b, n = 0;
+    for (i = 0; i < roadCount; i++) {
+        b = i * 4;
+        if (bboxes[b + 2] < posX - radius || bboxes[b] > posX + radius ||
+            bboxes[b + 3] < posY - radius || bboxes[b + 1] > posY + radius) {
+            continue;
+        }
+        out[n++] = i;
+    }
+    out.length = n;
+    return n;
 }
 
 export default {
@@ -136,5 +174,7 @@ export default {
     bearingDeg: bearingDeg,
     normDeg: normDeg,
     turnDiffDeg: turnDiffDeg,
-    drawRoads: drawRoads
+    drawRoads: drawRoads,
+    buildRoadBboxes: buildRoadBboxes,
+    filterVisibleRoads: filterVisibleRoads
 };

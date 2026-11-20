@@ -1,22 +1,28 @@
 // route-follow-simulator.js
 // Simulates driving along a decoded route polyline at 10 m/s
-// (36 km/h), updated once per second like the S1 spike.
-// Position is interpolated along the polyline by distance travelled;
-// when the route ends, travel wraps back to the start. Heading is
-// the compass bearing of the segment being driven, smoothed: the
-// displayed heading turns at most 30 degrees per step toward the
-// segment bearing, so the map swings round gradually at corners.
+// (36 km/h) by default, updated once per second like the S1 spike.
+// Position is interpolated along the polyline by distance travelled.
+// Heading is the compass bearing of the segment being driven,
+// smoothed: the displayed heading turns at most 30 degrees per step
+// toward the segment bearing, so the map swings round gradually at
+// corners.
 // State is created once by create() and reused; no object is created
 // per step. The cumulative distances are measured once, in create().
+// speedMPerS is set by the caller (the nav screen drives at 8 m/s on
+// a motorbike, 10 m/s in a car). When wrap is false, travel stops at
+// the end of the route instead of looping (the caller holds the
+// arrival screen and calls reset() to start again).
 
 import mapDrawHelpers from './map-draw-helpers.js';
 
 var SPEED_M_PER_S = 10;
 var MAX_TURN_DEG_PER_S = 30;
 
-function create(abs) {
+function create(abs, wrap) {
     var state = {
         abs: abs,
+        wrap: wrap === undefined ? true : wrap,
+        speedMPerS: SPEED_M_PER_S,
         cumDist: [],
         totalLength: 0,
         travelled: 0,
@@ -42,12 +48,31 @@ function create(abs) {
     return state;
 }
 
+// Back to the start of the route (after the arrival hold, or when
+// the vehicle changes).
+function reset(state) {
+    state.travelled = 0;
+    state.segIndex = 0;
+    state.posX = state.abs.length > 0 ? state.abs[0] : 0;
+    state.posY = state.abs.length > 1 ? state.abs[1] : 0;
+    if (state.abs.length >= 4) {
+        state.segHeading = mapDrawHelpers.bearingDeg(
+            state.abs[0], state.abs[1], state.abs[2], state.abs[3]);
+    }
+    state.heading = state.segHeading;
+}
+
 function step(state, dtSeconds) {
     var segStart, segLen, frac, diff, x1, y1, x2, y2;
-    state.travelled += SPEED_M_PER_S * dtSeconds;
+    state.travelled += state.speedMPerS * dtSeconds;
     if (state.travelled >= state.totalLength) {
-        state.travelled -= state.totalLength;
-        state.segIndex = 0;
+        if (state.wrap) {
+            state.travelled -= state.totalLength;
+            state.segIndex = 0;
+        } else {
+            state.travelled = state.totalLength;
+            state.segIndex = state.cumDist.length - 2;
+        }
     }
     while (state.segIndex < state.cumDist.length - 2 &&
         state.travelled > state.cumDist[state.segIndex + 1]) {
@@ -93,6 +118,7 @@ function remainingAbs(state, out) {
 export default {
     create: create,
     step: step,
+    reset: reset,
     remainingAbs: remainingAbs,
     speedMPerS: SPEED_M_PER_S,
     maxTurnDegPerS: MAX_TURN_DEG_PER_S
