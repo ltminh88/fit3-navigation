@@ -47,8 +47,15 @@ Code thêm trong spike S1b:
   tuyến chính giữ nguyên 200 điểm.
 - `common/fixture-guidance.js` — 5 bước hướng dẫn giả (tên đường tiếng
   Việt có dấu, tốc độ giới hạn, tốc độ hiện tại, khoảng cách tới biển
-  kế tiếp); trang nav-screen chuyển bước mỗi 3 giây, khoảng cách giảm
-  mỗi giây, heading xoay 10°/giây như spike S1.
+  kế tiếp); trang nav-screen ghép từng bước theo thứ tự với từng
+  điểm rẽ tính từ tuyến (vòng lại nếu thiếu bước), tốc độ hiện tại
+  hiển thị 36 km/h theo mô phỏng.
+- `common/route-follow-simulator.js` — mô phỏng đi dọc tuyến 10 m/giây,
+  nội suy vị trí theo quãng đường đã đi, heading là hướng đoạn đang
+  đi làm mượt tối đa 30°/giây, hết tuyến quay lại đầu.
+- `common/route-maneuver-extractor.js` — tính sẵn điểm rẽ của tuyến
+  (hướng đổi > 30°, trái/phải theo dấu tích có hướng; đoạn cong gộp
+  thành 1 điểm rẽ ở cuối đoạn cong): 8 điểm rẽ trên tuyến fixture.
 - `pages/nav-screen/` — canvas 480×408, tỉ lệ 1 px = 1 m: nền be `#F2EFE9`, đường lớn
   viền cam `#E8A33D` lõi vàng `#F9D56E`, đường nhỏ viền `#DADADA` lõi trắng,
   tuyến chính xanh `#2F7CF6` 6 px, chấm vị trí xanh viền trắng ở

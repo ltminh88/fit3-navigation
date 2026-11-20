@@ -1,9 +1,12 @@
 // fixture-guidance.js
-// Fake guidance steps for the S1b navigation screen mock.
-// No routing, no GPS: the nav-screen page cycles through these 5
-// steps (3 seconds each) and counts the distance down every second.
-// Street names are Vietnamese with diacritics on purpose: the page
-// is also the test for whether lite renders them (see nav-screen.js).
+// Fake guidance data for the S1b navigation screen mock. The turn
+// points themselves come from the route (route-maneuver-extractor);
+// these steps supply, in order and cycling, the street name, speed
+// limit and next-sign distance paired with each turn. The current
+// speed shown on screen is the simulated 36 km/h, not the
+// currentSpeed value here (kept for reference). Street names are
+// Vietnamese with diacritics on purpose: the page is also the test
+// for whether lite renders them (see nav-screen.js).
 
 export default {
     steps: [
