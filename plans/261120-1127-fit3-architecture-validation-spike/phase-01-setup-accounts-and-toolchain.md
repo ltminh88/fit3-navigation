@@ -29,7 +29,9 @@ Không có. Đây là phase hành chính và công cụ.
 1. Đăng ký / xác thực HUAWEI Developer cá nhân. Ghi lại thời gian xác thực.
 2. Tạo project trên AppGallery Connect. Đặt package đồng hồ ngắn (ví dụ `com.ltminh88.fitnav`), bundle iOS tương ứng.
 3. Nộp đơn quyền Wear Engine: chọn P2P message + device info. Chụp màn hình form, ghi ngày nộp.
-4. Cài DevEco Studio. Kiểm tra có template "Lite Wearable" và simulator profile nào gần 480×408.
+4. Cài DevEco Studio. Đã kiểm tra bản 6.1.1 (SDK API 24): có template **"[Lite]Empty Ability"** (FA model, JS, deviceType `liteWearable`), và có previewer liteWearable.
+   - **Không chọn "Wearable"**: đó là ArkTS/Stage, chỉ dành cho đồng hồ cao cấp, Fit 3 không chạy được.
+   - **Đường dẫn project không được có dấu cách.**
 5. Tạo CSR → .cer + .p7b. Lấy UDID của Fit 3 (DevEco Assistant / Huawei Health), đăng ký vào profile debug.
 6. Cài Xcode, tải Wear Engine iOS SDK (1.0.0.305 hoặc mới hơn), đọc sample.
 7. Ghi toàn bộ vào `spikes/results/s5-account-and-permission.md`: thời gian từng bước, chỗ vướng, trạng thái đơn.
