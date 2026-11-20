@@ -20,7 +20,15 @@ JS_ROOT = spikes/watch-lite-app/entry/src/main/js/MainAbility/
 Trang mới pages/nav-screen/ (hml/css/js), gốc là <stack> 480x408:
 1. Vùng bản đồ (canvas 480x408 phủ toàn màn hình, phần dưới bị khung đen che):
    - Nền be nhạt #F2EFE9 (fillRect mỗi khung).
-   - Đường phụ: vẽ 2 lớp — viền #C8C8C8 6 px rồi lõi #FFFFFF 4 px.
+   - MỤC TIÊU THẨM MỸ: chủ repo muốn giao diện đẹp ngang các app dẫn đường thương mại, không phải bản thử tạm.
+     Ưu tiên màu sắc, phân cấp đường, độ rõ chữ, khoảng cách lề đều nhau.
+   - Phân cấp đường (mỗi đường vẽ 2 lớp: viền trước, lõi sau; vẽ hết viền của mọi đường rồi mới vẽ lõi,
+     để chỗ giao nhau liền mạch):
+     · Đường lớn: viền #E8A33D 6 px, lõi #F9D56E 4 px.
+     · Đường nhỏ: viền #CFCFCF 6 px, lõi #FFFFFF 4 px.
+     Mở rộng fixture: trong common/fixture-route.js thêm (không phá dữ liệu cũ) cấp đường cho 8 đường phụ
+     (3 đường lớn, 5 đường nhỏ) và thêm 4–6 đường nhỏ nữa cho bản đồ đỡ trống; đường phụ được phép 2–6 điểm.
+   - Tuyến chính vẽ SAU cùng, đè lên mọi đường: viền trắng #FFFFFF 8 px? KHÔNG (8 px vỡ nét) → chỉ lõi #2F7CF6 6 px.
    - Tuyến chính: #2F7CF6, 6 px, lineCap/lineJoin round.
    - Vị trí người dùng ở (240, 200): đĩa xanh #2F7CF6 bán kính 9 + viền trắng 3 px (vẽ bằng arc stroke dày, xem trên).
    - Heading-up, tỉ lệ 1 px = 2 m, tái dùng drawPolyline/cách cắt đoạn của pages/map/map.js — TÁCH phần dùng chung
