@@ -1,0 +1,584 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D8694A05F2F56335D4335FEA /* Fit3NavCompanionApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A574E4CB885239B78846EE65 /* Fit3NavCompanionApp.swift */; };
+		203247F8494A1277556F5D88 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902E028717BD9934F9321FFE /* ContentView.swift */; };
+		212BC221EEE230F487BF26A1 /* RouteMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28FC04FEE2678E5F5DA30839 /* RouteMapView.swift */; };
+		DD0C55F0521065FF8A986067 /* TripViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5B0880D71F43E4854DBB4F /* TripViewModel.swift */; };
+		B2681D2584A64711D16F1CD0 /* RouteData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386B397CE782D1E820E66591 /* RouteData.swift */; };
+		438DF9D5958C0710C89F0A65 /* GeoProjection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDC54BB2DD255C011841615 /* GeoProjection.swift */; };
+		6ACDBAB30549E05AA5781A88 /* Polyline6.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB03A07003E07B76F5797285 /* Polyline6.swift */; };
+		203253EA36F4EDFD57FF335A /* RouteCodec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5228A14CC26FCF695ABD59 /* RouteCodec.swift */; };
+		DFACE61255FFC5DED17BE2B1 /* ValhallaClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6020ACFA58F7D7B085CC4EB5 /* ValhallaClient.swift */; };
+		8DC2D6FA8E3A265EA646FDF2 /* OverpassClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C54D76EEE889F3C4AE8423 /* OverpassClient.swift */; };
+		892FA0E06CB19C79D0E434EB /* TripBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DD727A18635818C8424627B /* TripBuilder.swift */; };
+		F8226775255C7B07D89E1707 /* P2PMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D2474B9D40A9C9CC88FFC2 /* P2PMessage.swift */; };
+		B5C7B6D67C4E8CEE4AA75BF5 /* P2PEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB70BDA5ADD4A8949BEAC4BC /* P2PEncoder.swift */; };
+		608243710197A985FDDD09A0 /* P2PDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21EE73680FFF5F556F2B7A3 /* P2PDecoder.swift */; };
+		FF80C635F437C791112108AB /* WatchLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7033BE16A740D663321703A8 /* WatchLink.swift */; };
+		CA692D95481507EF23759A6A /* HuaweiWearEngineWatchLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF02485C05E715E04DC6B52D /* HuaweiWearEngineWatchLink.swift */; };
+		314C9521098CBB9F11E596E6 /* FixtureLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0CF97718F40A6D3CDF0EFB /* FixtureLoader.swift */; };
+		636E9747EAAAFB678FF3D952 /* GeoProjectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA86289EEEC3115E79541B7 /* GeoProjectionTests.swift */; };
+		1C6FF4EBCAF95750C46696B4 /* P2PEncoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9762A7F4A4DFD602E98D5288 /* P2PEncoderTests.swift */; };
+		31AE6E64B786384DF60142CB /* valhalla-motor-scooter.json in Resources */ = {isa = PBXBuildFile; fileRef = E17A9C77CE34C52BE20A9322 /* valhalla-motor-scooter.json */; };
+		2A412CA2507104A5EABBE9B8 /* fixture-real-map.json in Resources */ = {isa = PBXBuildFile; fileRef = F15442D68074AE82EAE9F087 /* fixture-real-map.json */; };
+		B72A5EB1A3E72789B6BBA2A9 /* messages.json in Resources */ = {isa = PBXBuildFile; fileRef = 52B69CCECD185D4DE89DDC1A /* messages.json */; };
+		4003621105C4EC55C184AD00 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 56010DF9AF528A12FD516609 /* Assets.xcassets */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		A574E4CB885239B78846EE65 /* Fit3NavCompanionApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fit3NavCompanionApp.swift; sourceTree = "<group>"; };
+		902E028717BD9934F9321FFE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		28FC04FEE2678E5F5DA30839 /* RouteMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteMapView.swift; sourceTree = "<group>"; };
+		5B5B0880D71F43E4854DBB4F /* TripViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripViewModel.swift; sourceTree = "<group>"; };
+		386B397CE782D1E820E66591 /* RouteData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteData.swift; sourceTree = "<group>"; };
+		1EDC54BB2DD255C011841615 /* GeoProjection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoProjection.swift; sourceTree = "<group>"; };
+		EB03A07003E07B76F5797285 /* Polyline6.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Polyline6.swift; sourceTree = "<group>"; };
+		3A5228A14CC26FCF695ABD59 /* RouteCodec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteCodec.swift; sourceTree = "<group>"; };
+		6020ACFA58F7D7B085CC4EB5 /* ValhallaClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValhallaClient.swift; sourceTree = "<group>"; };
+		15C54D76EEE889F3C4AE8423 /* OverpassClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverpassClient.swift; sourceTree = "<group>"; };
+		6DD727A18635818C8424627B /* TripBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripBuilder.swift; sourceTree = "<group>"; };
+		19D2474B9D40A9C9CC88FFC2 /* P2PMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = P2PMessage.swift; sourceTree = "<group>"; };
+		BB70BDA5ADD4A8949BEAC4BC /* P2PEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = P2PEncoder.swift; sourceTree = "<group>"; };
+		F21EE73680FFF5F556F2B7A3 /* P2PDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = P2PDecoder.swift; sourceTree = "<group>"; };
+		7033BE16A740D663321703A8 /* WatchLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchLink.swift; sourceTree = "<group>"; };
+		EF02485C05E715E04DC6B52D /* HuaweiWearEngineWatchLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuaweiWearEngineWatchLink.swift; sourceTree = "<group>"; };
+		56010DF9AF528A12FD516609 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DC0CF97718F40A6D3CDF0EFB /* FixtureLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixtureLoader.swift; sourceTree = "<group>"; };
+		DAA86289EEEC3115E79541B7 /* GeoProjectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoProjectionTests.swift; sourceTree = "<group>"; };
+		9762A7F4A4DFD602E98D5288 /* P2PEncoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = P2PEncoderTests.swift; sourceTree = "<group>"; };
+		E17A9C77CE34C52BE20A9322 /* valhalla-motor-scooter.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = valhalla-motor-scooter.json; sourceTree = "<group>"; };
+		F15442D68074AE82EAE9F087 /* fixture-real-map.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = fixture-real-map.json; sourceTree = "<group>"; };
+		52B69CCECD185D4DE89DDC1A /* messages.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = messages.json; sourceTree = "<group>"; };
+		54580991DC9E896BD293FE67 /* Fit3NavCompanion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fit3NavCompanion.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA2065017B41A57FD3881DC8 /* Fit3NavCompanionTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Fit3NavCompanionTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		09DCA9BF545B487260622FAC = {
+			isa = PBXGroup;
+			children = (
+				AFB3A538886C87F0DC358B66 /* Fit3NavCompanion */,
+				5D7B7D7D6AADB78E01E82645 /* Fit3NavCompanionTests */,
+				D7761577361C8844827CCB08 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		AFB3A538886C87F0DC358B66 /* Fit3NavCompanion */ = {
+			isa = PBXGroup;
+			children = (
+				A574E4CB885239B78846EE65 /* Fit3NavCompanionApp.swift */,,
+				902E028717BD9934F9321FFE /* ContentView.swift */,,
+				28FC04FEE2678E5F5DA30839 /* RouteMapView.swift */,,
+				5B5B0880D71F43E4854DBB4F /* TripViewModel.swift */,,
+				386B397CE782D1E820E66591 /* RouteData.swift */,,
+				1EDC54BB2DD255C011841615 /* GeoProjection.swift */,,
+				EB03A07003E07B76F5797285 /* Polyline6.swift */,,
+				3A5228A14CC26FCF695ABD59 /* RouteCodec.swift */,,
+				6020ACFA58F7D7B085CC4EB5 /* ValhallaClient.swift */,,
+				15C54D76EEE889F3C4AE8423 /* OverpassClient.swift */,,
+				6DD727A18635818C8424627B /* TripBuilder.swift */,,
+				19D2474B9D40A9C9CC88FFC2 /* P2PMessage.swift */,,
+				BB70BDA5ADD4A8949BEAC4BC /* P2PEncoder.swift */,,
+				F21EE73680FFF5F556F2B7A3 /* P2PDecoder.swift */,,
+				7033BE16A740D663321703A8 /* WatchLink.swift */,,
+				EF02485C05E715E04DC6B52D /* HuaweiWearEngineWatchLink.swift */,,
+				56010DF9AF528A12FD516609 /* Assets.xcassets */,
+			);
+			path = Fit3NavCompanion;
+			sourceTree = "<group>";
+		};
+		5D7B7D7D6AADB78E01E82645 /* Fit3NavCompanionTests */ = {
+			isa = PBXGroup;
+			children = (
+				DC0CF97718F40A6D3CDF0EFB /* FixtureLoader.swift */,,
+				DAA86289EEEC3115E79541B7 /* GeoProjectionTests.swift */,,
+				9762A7F4A4DFD602E98D5288 /* P2PEncoderTests.swift */,
+				122133AAB0F4A9259B41B9AF /* Fixtures */,
+			);
+			path = Fit3NavCompanionTests;
+			sourceTree = "<group>";
+		};
+		122133AAB0F4A9259B41B9AF /* Fixtures */ = {
+			isa = PBXGroup;
+			children = (
+				E17A9C77CE34C52BE20A9322 /* valhalla-motor-scooter.json */,,
+				F15442D68074AE82EAE9F087 /* fixture-real-map.json */,,
+				52B69CCECD185D4DE89DDC1A /* messages.json */,
+			);
+			path = Fixtures;
+			sourceTree = "<group>";
+		};
+		D7761577361C8844827CCB08 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				54580991DC9E896BD293FE67 /* Fit3NavCompanion.app */,
+				AA2065017B41A57FD3881DC8 /* Fit3NavCompanionTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXSourcesBuildPhase section */
+		5F4CF6B3982FA876742A0DD2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D8694A05F2F56335D4335FEA /* Fit3NavCompanionApp.swift in Sources */,,
+				203247F8494A1277556F5D88 /* ContentView.swift in Sources */,,
+				212BC221EEE230F487BF26A1 /* RouteMapView.swift in Sources */,,
+				DD0C55F0521065FF8A986067 /* TripViewModel.swift in Sources */,,
+				B2681D2584A64711D16F1CD0 /* RouteData.swift in Sources */,,
+				438DF9D5958C0710C89F0A65 /* GeoProjection.swift in Sources */,,
+				6ACDBAB30549E05AA5781A88 /* Polyline6.swift in Sources */,,
+				203253EA36F4EDFD57FF335A /* RouteCodec.swift in Sources */,,
+				DFACE61255FFC5DED17BE2B1 /* ValhallaClient.swift in Sources */,,
+				8DC2D6FA8E3A265EA646FDF2 /* OverpassClient.swift in Sources */,,
+				892FA0E06CB19C79D0E434EB /* TripBuilder.swift in Sources */,,
+				F8226775255C7B07D89E1707 /* P2PMessage.swift in Sources */,,
+				B5C7B6D67C4E8CEE4AA75BF5 /* P2PEncoder.swift in Sources */,,
+				608243710197A985FDDD09A0 /* P2PDecoder.swift in Sources */,,
+				FF80C635F437C791112108AB /* WatchLink.swift in Sources */,,
+				CA692D95481507EF23759A6A /* HuaweiWearEngineWatchLink.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CF0D7EEFA2F2468B19E855BB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				314C9521098CBB9F11E596E6 /* FixtureLoader.swift in Sources */,,
+				636E9747EAAAFB678FF3D952 /* GeoProjectionTests.swift in Sources */,,
+				1C6FF4EBCAF95750C46696B4 /* P2PEncoderTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		115C0C2961457D52C071FAC5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		16FB90F7489549DD92C52265 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CBDB0B91474861C298E02B58 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4003621105C4EC55C184AD00 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		589400010D0219B8790A0C98 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				31AE6E64B786384DF60142CB /* valhalla-motor-scooter.json in Resources */,,
+				2A412CA2507104A5EABBE9B8 /* fixture-real-map.json in Resources */,,
+				B72A5EB1A3E72789B6BBA2A9 /* messages.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		A6316544231978162E20CDF9 /* Fit3NavCompanion */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A2759D5C3C1066E8E22C0834 /* Build configuration list for PBXNativeTarget "Fit3NavCompanion" */;
+			buildPhases = (
+				5F4CF6B3982FA876742A0DD2 /* Sources */,
+				115C0C2961457D52C071FAC5 /* Frameworks */,
+				CBDB0B91474861C298E02B58 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Fit3NavCompanion;
+			productName = Fit3NavCompanion;
+			productReference = 54580991DC9E896BD293FE67 /* Fit3NavCompanion.app */;
+			productType = "com.apple.product-type.application";
+		};
+		A5046513704179E8335098C2 /* Fit3NavCompanionTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7FFE02381843BEDE1392D16F /* Build configuration list for PBXNativeTarget "Fit3NavCompanionTests" */;
+			buildPhases = (
+				CF0D7EEFA2F2468B19E855BB /* Sources */,
+				16FB90F7489549DD92C52265 /* Frameworks */,
+				589400010D0219B8790A0C98 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1AEE022CEE43913D372AC140 /* PBXTargetDependency */,
+			);
+			name = Fit3NavCompanionTests;
+			productName = Fit3NavCompanionTests;
+			productReference = AA2065017B41A57FD3881DC8 /* Fit3NavCompanionTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C7436021DD65D7853CB82321 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					A6316544231978162E20CDF9 = {
+						CreatedOnToolsVersion = 16.0;
+					};
+					A5046513704179E8335098C2 = {
+						CreatedOnToolsVersion = 16.0;
+						TestTargetID = A6316544231978162E20CDF9;
+					};
+				};
+			};
+			buildConfigurationList = E51DC5358A4B2A84C469305B /* Build configuration list for PBXProject "Fit3NavCompanion" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 09DCA9BF545B487260622FAC;
+			productRefGroup = D7761577361C8844827CCB08 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A6316544231978162E20CDF9 /* Fit3NavCompanion */,
+				A5046513704179E8335098C2 /* Fit3NavCompanionTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXTargetDependency section */
+		1AEE022CEE43913D372AC140 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A6316544231978162E20CDF9 /* Fit3NavCompanion */;
+			targetProxy = 42B7442CCCA2EA61D03B2960 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXContainerItemProxy section */
+		42B7442CCCA2EA61D03B2960 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C7436021DD65D7853CB82321 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A6316544231978162E20CDF9;
+			remoteInfo = Fit3NavCompanion;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin XCBuildConfiguration section */
+		A300ED9403D61BF9D57520EE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LOCALIZATION_PREFS = "";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		AA86ED763BC2ECADC811E8FE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LOCALIZATION_PREFS = "";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				ENABLE_NS_ASSERTIONS = NO;
+			};
+			name = Release;
+		};
+		9A9A7F6D12B0E59FCB9AB42E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = (
+					UIInterfaceOrientationPortrait,
+					UIInterfaceOrientationLandscapeLeft,
+					UIInterfaceOrientationLandscapeRight,
+				);;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ltminh88.fitnav-companion;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMBED_LIBRARIES_WITH_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		8907820136D24AB5FA72D6FA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = (
+					UIInterfaceOrientationPortrait,
+					UIInterfaceOrientationLandscapeLeft,
+					UIInterfaceOrientationLandscapeRight,
+				);;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ltminh88.fitnav-companion;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMBED_LIBRARIES_WITH_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_OPTIMIZATION_LEVEL = s;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		9AD871CA57A4416968364E2D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ltminh88.fitnav-companion.tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Fit3NavCompanion.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Fit3NavCompanion";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		4F31FBA679FCB64D0F0387D9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ltminh88.fitnav-companion.tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Fit3NavCompanion.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Fit3NavCompanion";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_OPTIMIZATION_LEVEL = s;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E51DC5358A4B2A84C469305B /* Build configuration list for PBXProject "Fit3NavCompanion" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A300ED9403D61BF9D57520EE /* Debug */,
+				AA86ED763BC2ECADC811E8FE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A2759D5C3C1066E8E22C0834 /* Build configuration list for PBXNativeTarget "Fit3NavCompanion" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9A9A7F6D12B0E59FCB9AB42E /* Debug */,
+				8907820136D24AB5FA72D6FA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7FFE02381843BEDE1392D16F /* Build configuration list for PBXNativeTarget "Fit3NavCompanionTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9AD871CA57A4416968364E2D /* Debug */,
+				4F31FBA679FCB64D0F0387D9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+	};
+	rootObject = C7436021DD65D7853CB82321 /* Project object */;
+}
