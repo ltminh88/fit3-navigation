@@ -2,6 +2,14 @@
 // Probes each canvas API used by the S1 map spike, one at a time,
 // in try/catch, and prints the result on screen ("name: OK" or
 // "name: FAIL <error>") because the lite wearable has no usable log.
+// Results are shown in a scrollable <list>, one <text> per line;
+// the "OK x/N" summary stays at the top. 21 APIs are probed in total.
+//
+// Property probes (lineWidth, strokeStyle, fillStyle, lineCap,
+// lineJoin, font): if setting the value does not throw but reading it
+// back gives a different value (for example '#FF0000' instead of
+// '#ff0000'), the result is "OK (readback=<value>)" rather than FAIL,
+// so a harmless normalisation is not misread as a missing API.
 //
 // Assumptions (not verified on the real watch yet):
 // - The canvas element is reachable as this.$refs.probeCanvas
@@ -15,7 +23,7 @@ import router from '@system.router';
 export default {
     data: {
         summaryText: 'Dang kiem tra...',
-        resultsText: ''
+        results: []
     },
     onShow() {
         this.runProbe();
@@ -47,6 +55,23 @@ export default {
             }
         }
 
+        function tryProperty(name, setFn, getFn, isExpected) {
+            var actual;
+            try {
+                setFn();
+                actual = getFn();
+            } catch (e) {
+                record(name, false, e && e.message ? e.message : e);
+                return;
+            }
+            if (isExpected(actual)) {
+                record(name, true);
+            } else {
+                results.push(name + ': OK (readback=' + actual + ')');
+                okCount++;
+            }
+        }
+
         try {
             if (this.$refs && this.$refs.probeCanvas) {
                 canvas = this.$refs.probeCanvas;
@@ -63,8 +88,8 @@ export default {
         }
         if (canvas === null) {
             record('getContext(\'2d\')', false, 'no canvas element');
-            this.summaryText = 'OK 0/19';
-            this.resultsText = results.join('\n');
+            this.summaryText = 'OK 0/21';
+            this.results = results;
             return;
         }
 
@@ -77,8 +102,8 @@ export default {
                 e3 && e3.message ? e3.message : e3);
         }
         if (ctx === null || ctx === undefined) {
-            this.summaryText = 'OK ' + okCount + '/19';
-            this.resultsText = results.join('\n');
+            this.summaryText = 'OK ' + okCount + '/21';
+            this.results = results;
             return;
         }
 
@@ -106,30 +131,18 @@ export default {
             ctx.closePath();
             ctx.stroke();
         });
-        tryCall('lineWidth', function () {
-            ctx.lineWidth = 5;
-            if (ctx.lineWidth !== 5) {
-                throw new Error('readback ' + ctx.lineWidth);
-            }
-        });
-        tryCall('strokeStyle', function () {
-            ctx.strokeStyle = '#ff0000';
-            if (ctx.strokeStyle !== '#ff0000') {
-                throw new Error('readback ' + ctx.strokeStyle);
-            }
-        });
-        tryCall('lineCap', function () {
-            ctx.lineCap = 'round';
-            if (ctx.lineCap !== 'round') {
-                throw new Error('readback ' + ctx.lineCap);
-            }
-        });
-        tryCall('lineJoin', function () {
-            ctx.lineJoin = 'round';
-            if (ctx.lineJoin !== 'round') {
-                throw new Error('readback ' + ctx.lineJoin);
-            }
-        });
+        tryProperty('lineWidth', function () { ctx.lineWidth = 5; },
+            function () { return ctx.lineWidth; }, function (v) { return v === 5; });
+        tryProperty('strokeStyle', function () { ctx.strokeStyle = '#ff0000'; },
+            function () { return ctx.strokeStyle; },
+            function (v) { return String(v).toLowerCase() === '#ff0000'; });
+        tryProperty('fillStyle', function () { ctx.fillStyle = '#00ff00'; },
+            function () { return ctx.fillStyle; },
+            function (v) { return String(v).toLowerCase() === '#00ff00'; });
+        tryProperty('lineCap', function () { ctx.lineCap = 'round'; },
+            function () { return ctx.lineCap; }, function (v) { return v === 'round'; });
+        tryProperty('lineJoin', function () { ctx.lineJoin = 'round'; },
+            function () { return ctx.lineJoin; }, function (v) { return v === 'round'; });
         tryCall('arc', function () {
             ctx.beginPath();
             ctx.arc(150, 40, 25, 0, Math.PI * 2);
@@ -141,13 +154,11 @@ export default {
             ctx.fill();
         });
         tryCall('fillRect', function () { ctx.fillRect(230, 20, 50, 30); });
+        tryCall('clearRect', function () { ctx.clearRect(0, 0, 10, 10); });
         tryCall('fillText', function () { ctx.fillText('A', 300, 45); });
-        tryCall('font', function () {
-            ctx.font = '20px sans-serif';
-            if (String(ctx.font).indexOf('20') < 0) {
-                throw new Error('readback ' + ctx.font);
-            }
-        });
+        tryProperty('font', function () { ctx.font = '20px sans-serif'; },
+            function () { return ctx.font; },
+            function (v) { return String(v).indexOf('20') >= 0; });
         tryCall('save/restore', function () {
             ctx.save();
             ctx.restore();
@@ -167,9 +178,13 @@ export default {
             'not a function');
 
         this.summaryText = 'OK ' + okCount + '/' + results.length;
-        this.resultsText = results.join('\n');
+        this.results = results;
     },
     goBack() {
-        router.back();
+        // router.replace is the Lite-capable navigation API; push/back
+        // are SystemCapability.ArkUI.Full only, so they are not used.
+        router.replace({
+            uri: 'pages/index/index'
+        });
     }
 };

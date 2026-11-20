@@ -23,11 +23,13 @@ API Probe (trang này tự in kết quả, vì lite wearable khó xem log).
 | closePath | | |
 | lineWidth | | |
 | strokeStyle | | |
+| fillStyle | | |
 | lineCap | | |
 | lineJoin | | |
 | arc | | |
 | fill | | |
 | fillRect | | |
+| clearRect | | |
 | fillText | | |
 | font | | |
 | save/restore | | |
@@ -35,12 +37,21 @@ API Probe (trang này tự in kết quả, vì lite wearable khó xem log).
 | rotate | | |
 | drawImage (chỉ kiểm tra có hàm, không vẽ ảnh thật) | | |
 
-Tổng OK: simulator __/19, máy thật __/19.
+Tổng OK: simulator __/21, máy thật __/21.
+
+Lưu ý: một số probe thuộc tính có thể hiện `OK (readback=<giá trị>)`
+khi gán không ném lỗi nhưng đọc lại ra giá trị khác (vd. `#FF0000`
+thay vì `#ff0000`) — đó vẫn tính là OK, không phải FAIL.
 
 ## Số đo thời gian vẽ (trang Map)
 
 Đọc 3 số ở góc màn hình sau khi trang Map đã chạy một lúc. Vẽ 200 điểm
 (tuyến chính) + 8 đường phụ, heading tăng 10° mỗi giây.
+
+Lưu ý: số ms đo bằng `Date.now()` chỉ là thời gian JS gửi lệnh vẽ;
+lite có thể vẽ thật sau khi hàm trả về, nên phải đánh giá thêm bằng
+mắt (xoay có giật/xé hình không) — số ms thấp không đủ để kết luận
+mượt nếu mắt thấy giật.
 
 | Số đo | Simulator | Máy thật |
 | --- | --- | --- |
