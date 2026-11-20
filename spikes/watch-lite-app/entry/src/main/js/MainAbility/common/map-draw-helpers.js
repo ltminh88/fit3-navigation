@@ -26,7 +26,10 @@ function sameSideOutside(ax, ay, bx, by) {
 // Project a map point (metres, north = -y on screen) to screen
 // pixels with heading-up rotation, writing into out[0]/out[1].
 // originX/originY is the screen position of the map origin;
-// metresPerPixel is 2 on both pages (1 px = 2 m).
+// metresPerPixel is 2 on the S1 map page, 1 on the nav screen.
+// mapOriginX/mapOriginY is the map point shown at that screen
+// position (0, 0 on the map page; the moving user position on the
+// nav screen, so the whole map shifts as the user drives).
 function projectInto(x, y, cosH, sinH, originX, originY, metresPerPixel, out) {
     out[0] = originX + (x * cosH - y * sinH) / metresPerPixel;
     out[1] = originY - (x * sinH + y * cosH) / metresPerPixel;
@@ -39,12 +42,14 @@ function projectInto(x, y, cosH, sinH, originX, originY, metresPerPixel, out) {
 // No object is created per point (one scratch array is reused).
 var SCRATCH = [0, 0];
 
-function drawPolyline(abs, ctx, cosH, sinH, originX, originY, metresPerPixel) {
+function drawPolyline(abs, ctx, cosH, sinH, originX, originY, metresPerPixel, mapOriginX, mapOriginY) {
     var i, sx, sy, prevSx, prevSy;
     var needMove = true;
+    if (mapOriginX === undefined) { mapOriginX = 0; }
+    if (mapOriginY === undefined) { mapOriginY = 0; }
     ctx.beginPath();
     for (i = 0; i < abs.length; i += 2) {
-        projectInto(abs[i], abs[i + 1], cosH, sinH,
+        projectInto(abs[i] - mapOriginX, abs[i + 1] - mapOriginY, cosH, sinH,
             originX, originY, metresPerPixel, SCRATCH);
         sx = SCRATCH[0];
         sy = SCRATCH[1];
@@ -81,10 +86,55 @@ function drawTextTop(ctx, text, x, yTop, fontPx) {
     ctx.fillText(text, x, yTop);
 }
 
+// Compass bearing of the vector (x1, y1) -> (x2, y2), in map metres
+// (x east, y north): 0 = north, 90 = east, 180 = south, 270 = west.
+function bearingDeg(x1, y1, x2, y2) {
+    var deg = Math.atan2(x2 - x1, y2 - y1) * 180 / Math.PI;
+    return deg < 0 ? deg + 360 : deg;
+}
+
+function normDeg(d) {
+    d = d % 360;
+    return d < 0 ? d + 360 : d;
+}
+
+// Shortest signed turn from one bearing to another,
+// in (-180, 180]: positive = right, negative = left.
+function turnDiffDeg(from, to) {
+    var d = normDeg(to - from);
+    return d > 180 ? d - 360 : d;
+}
+
+// Draw every road twice: borders of all roads first, then cores,
+// so junctions stay smooth. Each style is [border color, border
+// width, core color, core width]; originX/originY is the screen
+// position of the map origin, mapOriginX/mapOriginY the map point
+// shown there.
+function drawRoads(roads, levels, ctx, cosH, sinH, originX, originY,
+    metresPerPixel, mapOriginX, mapOriginY, majorStyle, minorStyle) {
+    var i, style;
+    for (i = 0; i < roads.length; i++) {
+        style = levels[i] === 'major' ? majorStyle : minorStyle;
+        ctx.strokeStyle = style[0]; ctx.lineWidth = style[1];
+        drawPolyline(roads[i], ctx, cosH, sinH, originX, originY,
+            metresPerPixel, mapOriginX, mapOriginY);
+    }
+    for (i = 0; i < roads.length; i++) {
+        style = levels[i] === 'major' ? majorStyle : minorStyle;
+        ctx.strokeStyle = style[2]; ctx.lineWidth = style[3];
+        drawPolyline(roads[i], ctx, cosH, sinH, originX, originY,
+            metresPerPixel, mapOriginX, mapOriginY);
+    }
+}
+
 export default {
     sameSideOutside: sameSideOutside,
     projectInto: projectInto,
     drawPolyline: drawPolyline,
     drawDisc: drawDisc,
-    drawTextTop: drawTextTop
+    drawTextTop: drawTextTop,
+    bearingDeg: bearingDeg,
+    normDeg: normDeg,
+    turnDiffDeg: turnDiffDeg,
+    drawRoads: drawRoads
 };
