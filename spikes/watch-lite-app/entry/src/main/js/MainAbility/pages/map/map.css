@@ -8,20 +8,22 @@
   height: 408px;
 }
 .stats-bar {
-  width: 480px;
+  width: 380px;
   height: 44px;
+  margin-top: 50px;
+  margin-left: 50px;
   flex-direction: row;
   align-items: center;
   background-color: #ffffff;
 }
 .stats {
-  width: 360px;
+  width: 260px;
   height: 36px;
-  font-size: 22px;
+  font-size: 18px;
   text-align: left;
 }
 .back-button {
-  width: 110px;
+  width: 100px;
   height: 36px;
-  font-size: 20px;
+  font-size: 18px;
 }

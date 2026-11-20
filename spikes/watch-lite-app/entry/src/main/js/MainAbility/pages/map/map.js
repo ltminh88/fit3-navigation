@@ -9,7 +9,11 @@
 // is not lost. Draw order: side roads (grey, 3 px) -> main route
 // (blue, 8 px) -> user dot. Heading +10 degrees per second; the
 // interval stops in onDestroy. Stats bar: last frame ms, max ms,
-// frame count. No object is created in the draw loop; decoded arrays
+// frame count, shown compactly as "<last>ms max <max>ms #<count>"
+// so it fits the 380 px safe-area bar (50 px from top/left edges).
+// The user dot is drawn with a 16x16 fillRect first, then arc +
+// fill on top, so it stays visible even if fill() is a no-op
+// (on the Previewer the filled circle did not appear). No object is
 // are reused. The whole draw is in try/catch ('draw FAIL: <message>'
 // in the stats bar, keeping the count of frames drawn so far); the
 // user dot has its own try/catch so a missing arc/fill does not stop
@@ -158,6 +162,10 @@ export default {
             }
             ctx.strokeStyle = '#1e88e5'; ctx.lineWidth = 8;
             drawPolyline(this.mainAbs, ctx, cosH, sinH);
+            // Fallback dot first: a filled 16x16 square centred on the
+            // user position, so the dot shows even if fill() is a no-op.
+            ctx.fillStyle = '#d32f2f';
+            ctx.fillRect(USER_X - 8, USER_Y - 8, 16, 16);
             try {
                 ctx.beginPath();
                 ctx.arc(USER_X, USER_Y, 10, 0, Math.PI * 2);
@@ -170,8 +178,7 @@ export default {
                 // User dot failed; the route above still counts.
             }
         } catch (e3) {
-            this.statsText = 'draw FAIL: ' +
-                (e3 && e3.message ? e3.message : e3);
+            this.statsText = 'draw FAIL: ' + (e3 && e3.message ? e3.message : e3);
             return;
         }
         elapsed = Date.now() - startMs;
@@ -180,8 +187,7 @@ export default {
             this.maxMs = elapsed;
         }
         this.frameCount++;
-        this.statsText = this.lastMs + ' ms | max ' + this.maxMs +
-            ' ms | ' + this.frameCount + ' frames';
+        this.statsText = this.lastMs + 'ms max ' + this.maxMs + 'ms #' + this.frameCount;
     },
     goBack() {
         // router.replace is the Lite-capable navigation API; push/back
