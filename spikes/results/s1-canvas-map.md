@@ -67,6 +67,20 @@ mượt nếu mắt thấy giật.
 | Xoay có mượt ở 1 Hz không? (có / không, mô tả) | Có xoay đúng 10°/giây. Tuyến xanh 8 px ở góc chéo bị vẽ thành chuỗi chấm tròn (răng cưa); ở góc ngang/dọc thì liền nét | |
 | Đọc rõ khi giơ tay xem không? (có / không) | | |
 
+## Độ dày tuyến chính
+
+Bấm nút "W" trên thanh số đo của trang Map để đổi độ dày tuyến chính
+theo vòng 8 → 6 → 4 → 2 → 8 (mỗi lần đổi, max ms được reset về 0 để
+đo riêng cho từng độ dày). Ghi lại xem tuyến có liền nét ở góc chéo
+không, và max ms đo được trên máy thật.
+
+| lineWidth | Liền nét ở góc chéo? (simulator) | Liền nét ở góc chéo? (máy thật) | max ms (máy thật) |
+| --- | --- | --- | --- |
+| 8 | | | |
+| 6 | | | |
+| 4 | | | |
+| 2 | | | |
+
 ## Chạy 10 phút có crash không
 
 - Simulator: (không crash / crash sau __ phút, mô tả)
