@@ -108,3 +108,4 @@ chạy 10 phút không crash.
     `drawImage` không có → không làm được M2 (bản đồ ảnh) bằng canvas. `fill()` không vẽ gì → hình tô kín
     phải dùng fillRect.
   - Đường dày ở góc chéo bị vỡ thành chuỗi chấm trên simulator; cần xem trên máy thật.
+  - Canvas lite: `fillText(x, y)` lấy y là ĐỈNH chữ (top), không phải baseline như web — chữ trong ô đen/biển tốc độ ở trang nav-screen từng lệch xuống/mất nửa vì hiểu nhầm quy tắc này. Căn chữ giữa ô/vòng tròn phải tính `yTop = giữa - cỡ chữ/2` (xem `drawTextTop` trong `common/map-draw-helpers.js`).

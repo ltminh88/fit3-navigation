@@ -23,13 +23,77 @@ Code nằm trong project DevEco có sẵn ở `watch-lite-app/`:
   trí ở (240, 290), tỉ lệ 1 px = 2 m, xoay heading-up bằng sin/cos trong
   JS (không dùng `ctx.rotate`), heading tăng 10° mỗi giây, góc màn hình
   in thời gian vẽ khung gần nhất, lớn nhất và tổng số khung.
-- Trang `index` có hai nút mở hai trang trên.
+- Trang `index` có ba nút mở ba trang trên.
 
 Lưu ý về số đo thời gian: số ms ở trang Map đo bằng `Date.now()`
 chỉ là thời gian JS gửi lệnh vẽ; lite có thể vẽ thật sau khi hàm
 trả về, nên phải đánh giá thêm bằng mắt (xoay có giật/xé hình không).
 
 Kết quả điền vào `results/s1-canvas-map.md`.
+
+## S1b — Màn hình dẫn đường mẫu (trang nav-screen)
+
+Câu hỏi: với các API canvas đã đo được trên Previewer (không `fill()`,
+không `clearRect`, không `drawImage`, đường tối đa 6 px), màn hình dẫn
+đường trên Fit 3 có thể đẹp ngang app dẫn đường thương mại không?
+
+Code thêm trong spike S1b:
+
+- `common/map-draw-helpers.js` — phần vẽ dùng chung tách ra từ trang
+  Map (chiếu toạ độ, cắt đoạn cùng phía, vẽ polyline, vẽ đĩa tròn
+  bằng arc + stroke); trang Map import lại, không copy code.
+- `common/fixture-route.js` — 41 đường phụ (5 đường lớn, 36 đường nhỏ)
+  với cấp đường `sideRoadLevels`, gồm lưới phố đều 120 m quanh tuyến;
+  tuyến chính giữ nguyên 200 điểm.
+- `common/fixture-guidance.js` — 5 bước hướng dẫn giả (tên đường tiếng
+  Việt có dấu, tốc độ giới hạn, tốc độ hiện tại, khoảng cách tới biển
+  kế tiếp); chỉ còn dùng cho biển tốc độ giả ở S1c (xem dưới).
+- `common/route-follow-simulator.js` — mô phỏng đi dọc tuyến,
+  nội suy vị trí theo quãng đường đã đi, heading là hướng đoạn đang
+  đi làm mượt tối đa 30°/giây; tốc độ và chế độ quay lại đầu tuyến
+  đặt được theo phương tiện (xe máy 8 m/s, ô tô 10 m/s, dừng ở cuối
+  tuyến thay vì quay lại ngay).
+- `common/route-maneuver-extractor.js` — tính sẵn điểm rẽ của tuyến
+  giả (hướng đổi > 30°, trái/phải theo dấu tích có hướng; đoạn cong gộp
+  thành 1 điểm rẽ ở cuối đoạn cong): 8 điểm rẽ trên tuyến fixture.
+  Trang nav-screen không dùng nữa từ S1c (lời dẫn lấy từ fixture thật).
+- `pages/nav-screen/` — canvas 480×408, tỉ lệ 1 px = 1 m: nền be `#F2EFE9`, đường lớn
+  viền cam `#E8A33D` lõi vàng `#F9D56E`, đường nhỏ viền `#DADADA` lõi trắng,
+  tuyến chính xanh `#2F7CF6` 6 px, chấm vị trí xanh viền trắng ở
+  (240, 200), tên đường góc trên phải, giờ `HH:MM` + `XM`/`OTO`
+  góc trên giữa (chạm vào giờ để đổi phương tiện), biển tốc độ góc
+  trên trái, khung đen 130 px dưới đáy với icon rẽ (canvas 56×56
+  riêng), khoảng cách vàng 38 px và tên đường chỉ dẫn trắng 26 px.
+  Số ms vẽ một khung + số đường đã vẽ hiện nhỏ ở góc dưới trái vùng
+  bản đồ (`<ms>ms <n>r`, sẽ bỏ ở bản thật).
+
+## S1c — Bản đồ thật (OpenStreetMap) + tuyến thật (Valhalla)
+
+Câu hỏi: giao diện nav-screen có còn đúng khi dùng dữ liệu thật
+không — tuyến chạy đúng trên đường thật, lời dẫn và tên đường thật,
+và dữ liệu nặng bao nhiêu byte (đầu vào thiết kế P2P iPhone → đồng
+hồ, mỗi tin <= 1 KB)?
+
+- `tools/real-map-fixture/` — script Node (không npm ngoài) tải tuyến
+  Chợ Bến Thành → Nhà thờ Đức Bà từ Valhalla (xe máy `motor_scooter`,
+  ô tô `auto`) và đường phố từ Overpass, chiếu phẳng cục bộ, đơn giản
+  hoá Douglas–Peucker (tuyến 1 m, đường 2 m), xuất fixture + thống kê
+  byte. Chạy: `node spikes/tools/real-map-fixture/build-real-map-fixture.js`.
+- `common/fixture-real-map.js` + `common/fixture-real-map-roads.js` —
+  file sinh tự động (không sửa tay): 2 tuyến (mỗi tuyến 1772 m,
+  10 maneuver), 193 đường lớn + 170 đường nhỏ (836 điểm sau đơn giản
+  hoá, 3344 byte int16 = 4 tin 1 KB). Bản đồ: © OpenStreetMap
+  contributors (ODbL).
+- `common/real-map-loader.js` — giải mã fixture thật lúc onInit.
+- `common/nav-hud.js` — vẽ biển tốc độ + icon rẽ của trang nav-screen.
+- Trang nav-screen dùng fixture thật thay tuyến giả/lưới giả (file cũ
+  giữ lại cho trang Map). Biển tốc độ và 2 ô đen vẫn là dữ liệu giả
+  (chưa có giới hạn tốc độ thật trong fixture).
+
+Thoát trang nav-screen: **chạm 1 lần vào khung đen dưới đáy** (không
+có nút riêng) — trang sẽ về trang chủ. Trang này cũng là phép thử
+font của lite: xem dấu tiếng Việt và cỡ chữ 38/26 px có hiện đúng
+không trên Previewer/máy thật.
 
 ## Mở project trong DevEco Studio
 

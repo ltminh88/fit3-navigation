@@ -9,7 +9,9 @@
 // per second; interval stops in onDestroy. Stats bar shows last ms,
 // max ms, frame count and current width, compactly as
 // "<last>ms max <max>ms #<count> w<width>" (380 px safe-area bar,
-// 50 px from top/left). The "W" button cycles the main lineWidth
+// 50 px from top/left). Polyline projection and clipping live in
+// common/map-draw-helpers.js (shared with the S1b nav screen).
+// The "W" button cycles the main lineWidth
 // 8 -> 6 -> 4 -> 2 -> 8 and resets maxMs, so max is measured per
 // width. The dot is a 16x16 fillRect first, then arc + fill on top,
 // so it stays visible even if fill() is a no-op (on the Previewer
@@ -23,6 +25,7 @@
 
 import routeCodec from '../../common/route-codec.js';
 import fixtureRoute from '../../common/fixture-route.js';
+import mapDrawHelpers from '../../common/map-draw-helpers.js';
 import router from '@system.router';
 
 var USER_X = 240;
@@ -33,37 +36,6 @@ var SCREEN_HEIGHT = 408;
 var METRES_PER_PIXEL = 2;
 // Main-route lineWidths cycled by the "W" button (task-04 test).
 var WIDTHS = [8, 6, 4, 2];
-
-// True only when both points are off screen on the same side.
-function sameSideOutside(ax, ay, bx, by) {
-    return (ax < 0 && bx < 0) || (ax > SCREEN_WIDTH && bx > SCREEN_WIDTH) ||
-        (ay < 0 && by < 0) || (ay > SCREEN_HEIGHT && by > SCREEN_HEIGHT);
-}
-
-function drawPolyline(abs, ctx, cosH, sinH) {
-    var i, x, y, sx, sy, prevSx, prevSy;
-    var needMove = true;
-    ctx.beginPath();
-    for (i = 0; i < abs.length; i += 2) {
-        x = abs[i];
-        y = abs[i + 1];
-        sx = USER_X + (x * cosH - y * sinH) / METRES_PER_PIXEL;
-        sy = USER_Y - (x * sinH + y * cosH) / METRES_PER_PIXEL;
-        if (i === 0) {
-            ctx.moveTo(sx, sy);
-            needMove = false;
-        } else if (sameSideOutside(prevSx, prevSy, sx, sy)) {
-            needMove = true;
-        } else if (needMove) {
-            ctx.moveTo(prevSx, prevSy); ctx.lineTo(sx, sy); needMove = false;
-        } else {
-            ctx.lineTo(sx, sy);
-        }
-        prevSx = sx;
-        prevSy = sy;
-    }
-    ctx.stroke();
-}
 
 export default {
     data: {
@@ -145,10 +117,12 @@ export default {
             ctx.lineCap = 'round'; ctx.lineJoin = 'round';
             ctx.strokeStyle = '#9e9e9e'; ctx.lineWidth = 3;
             for (i = 0; i < this.sideAbsList.length; i++) {
-                drawPolyline(this.sideAbsList[i], ctx, cosH, sinH);
+                mapDrawHelpers.drawPolyline(this.sideAbsList[i], ctx,
+                    cosH, sinH, USER_X, USER_Y, METRES_PER_PIXEL);
             }
             ctx.strokeStyle = '#1e88e5'; ctx.lineWidth = this.lineWidth;
-            drawPolyline(this.mainAbs, ctx, cosH, sinH);
+            mapDrawHelpers.drawPolyline(this.mainAbs, ctx,
+                cosH, sinH, USER_X, USER_Y, METRES_PER_PIXEL);
             // Fallback dot first: a filled 16x16 square centred on the
             // user position, so the dot shows even if fill() is a no-op.
             ctx.fillStyle = '#d32f2f';

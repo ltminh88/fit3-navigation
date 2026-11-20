@@ -1,0 +1,66 @@
+.container {
+  width: 480px;
+  height: 408px;
+  background-color: #f2efe9;
+}
+.map-canvas {
+  width: 480px;
+  height: 408px;
+}
+.top-overlay {
+  width: 480px;
+  height: 44px;
+  margin-top: 40px;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.clock {
+  width: 120px;
+  height: 40px;
+  font-size: 30px;
+  text-align: center;
+  color: #333333;
+}
+.vehicle {
+  width: 60px;
+  height: 30px;
+  font-size: 20px;
+  text-align: center;
+  color: #333333;
+}
+.bottom-bar {
+  width: 480px;
+  height: 130px;
+  margin-top: 278px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #000000;
+}
+.turn-row {
+  width: 400px;
+  height: 60px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.turn-canvas {
+  width: 56px;
+  height: 56px;
+}
+.distance {
+  width: 180px;
+  height: 48px;
+  margin-left: 16px;
+  font-size: 38px;
+  text-align: left;
+  color: #ffd400;
+}
+.instruction {
+  width: 400px;
+  height: 36px;
+  font-size: 26px;
+  text-align: center;
+  color: #ffffff;
+}

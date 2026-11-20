@@ -33,7 +33,8 @@
         "pages": [
           "pages/index/index",
           "pages/api-probe/api-probe",
-          "pages/map/map"
+          "pages/map/map",
+          "pages/nav-screen/nav-screen"
         ],
         "name": ".MainAbility"
       }
