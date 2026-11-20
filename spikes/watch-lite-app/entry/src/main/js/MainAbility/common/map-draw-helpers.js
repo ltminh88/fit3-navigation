@@ -8,6 +8,11 @@
 // drawImage do not exist on lite).
 // A solid disc is drawn with arc + stroke: arc radius r/2 with
 // lineWidth r paints a solid disc of radius r.
+// TEXT RULE (measured on the Previewer): fillText(x, y) takes y as
+// the TOP of the text, not the baseline as on the web. So a text of
+// font size f centred in a box of height h starting at boxTop needs
+// yTop = boxTop + (h - f) / 2. Always draw text through drawTextTop
+// below, never call fillText directly, so the rule stays in one place.
 
 var SCREEN_WIDTH = 480;
 var SCREEN_HEIGHT = 408;
@@ -69,9 +74,17 @@ function drawDisc(ctx, cx, cy, radius, color) {
     ctx.stroke();
 }
 
+// Draw text with y as the TOP edge of the text (the lite rule above).
+// Sets the font as well, so callers never set ctx.font for text.
+function drawTextTop(ctx, text, x, yTop, fontPx) {
+    ctx.font = fontPx + 'px sans-serif';
+    ctx.fillText(text, x, yTop);
+}
+
 export default {
     sameSideOutside: sameSideOutside,
     projectInto: projectInto,
     drawPolyline: drawPolyline,
-    drawDisc: drawDisc
+    drawDisc: drawDisc,
+    drawTextTop: drawTextTop
 };
