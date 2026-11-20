@@ -42,19 +42,22 @@ Code thêm trong spike S1b:
 - `common/map-draw-helpers.js` — phần vẽ dùng chung tách ra từ trang
   Map (chiếu toạ độ, cắt đoạn cùng phía, vẽ polyline, vẽ đĩa tròn
   bằng arc + stroke); trang Map import lại, không copy code.
-- `common/fixture-route.js` — 13 đường phụ (3 đường lớn, 10 đường nhỏ)
-  với cấp đường `sideRoadLevels`; tuyến chính giữ nguyên 200 điểm.
+- `common/fixture-route.js` — 41 đường phụ (5 đường lớn, 36 đường nhỏ)
+  với cấp đường `sideRoadLevels`, gồm lưới phố đều 120 m quanh tuyến;
+  tuyến chính giữ nguyên 200 điểm.
 - `common/fixture-guidance.js` — 5 bước hướng dẫn giả (tên đường tiếng
   Việt có dấu, tốc độ giới hạn, tốc độ hiện tại, khoảng cách tới biển
   kế tiếp); trang nav-screen chuyển bước mỗi 3 giây, khoảng cách giảm
   mỗi giây, heading xoay 10°/giây như spike S1.
-- `pages/nav-screen/` — canvas 480×408: nền be `#F2EFE9`, đường lớn
-  viền cam `#E8A33D` lõi vàng `#F9D56E`, đường nhỏ viền xám lõi trắng,
+- `pages/nav-screen/` — canvas 480×408, tỉ lệ 1 px = 1 m: nền be `#F2EFE9`, đường lớn
+  viền cam `#E8A33D` lõi vàng `#F9D56E`, đường nhỏ viền `#DADADA` lõi trắng,
   tuyến chính xanh `#2F7CF6` 6 px, chấm vị trí xanh viền trắng ở
   (240, 200), tên đường `Phạm Văn Đồng` góc trên phải, giờ `HH:MM`
   góc trên giữa, biển tốc độ góc trên trái, khung đen 130 px dưới
   đáy với icon rẽ (canvas 56×56 riêng), khoảng cách vàng 38 px và
-  tên đường chỉ dẫn trắng 26 px.
+  tên đường chỉ dẫn trắng 26 px. Lưới phố 41 đường tạo các ô phố
+  120 m; số ms vẽ một khung hiện nhỏ ở góc dưới trái vùng bản đồ
+  (sẽ bỏ ở bản thật).
 
 Thoát trang nav-screen: **chạm 1 lần vào khung đen dưới đáy** (không
 có nút riêng) — trang sẽ về trang chủ. Trang này cũng là phép thử

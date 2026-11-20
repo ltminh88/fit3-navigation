@@ -60,6 +60,29 @@ var SIDE_ROAD_LEVELS = [
     'minor', 'minor', 'minor', 'minor', 'minor', 'minor', 'minor'
 ];
 
+// Street grid (S1b): a regular city grid around the route, built
+// deterministically (no random numbers) so every build is identical.
+// Blocks are 120 m on a side: 13 north-south lines and 13 east-west
+// lines, all minor, plus 2 long major roads. That is 26 new minor
+// roads and 2 new major roads (41 side roads in total: 5 major,
+// 36 minor). The grid covers x -300..1200, y -240..1200, so it
+// surrounds the whole route (0..855, 0..1110) from every heading.
+(function buildStreetGrid() {
+    var i;
+    for (i = -300; i <= 1200; i += 120) {
+        SIDE_ROADS_ABS.push([i, -240, i, 1200]);
+        SIDE_ROAD_LEVELS.push('minor');
+    }
+    for (i = -240; i <= 1200; i += 120) {
+        SIDE_ROADS_ABS.push([-300, i, 1200, i]);
+        SIDE_ROAD_LEVELS.push('minor');
+    }
+    SIDE_ROADS_ABS.push([720, -240, 720, 1200]);
+    SIDE_ROAD_LEVELS.push('major');
+    SIDE_ROADS_ABS.push([-300, 900, 1200, 900]);
+    SIDE_ROAD_LEVELS.push('major');
+})();
+
 function buildMainRoute() {
     var delta = [0, 0];
     var legIndex;
