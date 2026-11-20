@@ -61,9 +61,9 @@ mượt nếu mắt thấy giật.
 
 | Số đo | Simulator | Máy thật |
 | --- | --- | --- |
-| Thời gian vẽ khung gần nhất (ms) | chưa đọc được (thanh số đo bị chữ trắng trên nền trắng) | |
-| Thời gian vẽ lớn nhất (ms) | | |
-| Tổng số khung đã vẽ | | |
+| Thời gian vẽ khung gần nhất (ms) | 0–1 ms (CPU Mac, không đại diện cho đồng hồ) | |
+| Thời gian vẽ lớn nhất (ms) | 1 ms | |
+| Tổng số khung đã vẽ | 169 khung liên tục (~3 phút), đếm đúng 1 khung/giây | |
 | Xoay có mượt ở 1 Hz không? (có / không, mô tả) | Có xoay đúng 10°/giây. Tuyến xanh 8 px ở góc chéo bị vẽ thành chuỗi chấm tròn (răng cưa); ở góc ngang/dọc thì liền nét | |
 | Đọc rõ khi giơ tay xem không? (có / không) | | |
 
@@ -76,14 +76,14 @@ không, và max ms đo được trên máy thật.
 
 | lineWidth | Liền nét ở góc chéo? (simulator) | Liền nét ở góc chéo? (máy thật) | max ms (máy thật) |
 | --- | --- | --- | --- |
-| 8 | | | |
-| 6 | | | |
-| 4 | | | |
-| 2 | | | |
+| 8 | Không: góc chéo thành chuỗi chấm rời | | |
+| 6 | Có (chỉ xem được 1 khung, cần xem thêm) | | |
+| 4 | Có, liền nét ở mọi góc (12 khung) | | |
+| 2 | Chưa thử | | |
 
 ## Chạy 10 phút có crash không
 
-- Simulator: (không crash / crash sau __ phút, mô tả)
+- Simulator: không crash trong ~3 phút (169 khung). Quay lại trang chủ rồi mở lại bản đồ: bộ đếm về #1, tức interval cũ đã dừng đúng ở onDestroy. Chưa chạy đủ 10 phút.
 - Máy thật: (không crash / crash sau __ phút, mô tả)
 - Có dấu hiệu rò bộ nhớ / chậm dần không? (mô tả)
 
@@ -91,7 +91,7 @@ không, và max ms đo được trên máy thật.
 
 - API Probe trên simulator:
 - API Probe trên máy thật:
-- Map trên simulator:
+- Map trên simulator: video quay Previewer 2026-11-20 (38 s, giữ ở máy chủ repo, không commit)
 - Map trên máy thật:
 
 (Dán ảnh vào đây, hoặc ghi đường dẫn file ảnh trong repo.)
