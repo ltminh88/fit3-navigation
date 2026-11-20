@@ -10,8 +10,12 @@ Nhiệm vụ: viết spike S1, kiểm tra canvas JS trên Huawei Watch Fit 3 có
 
 ## Điều kiện tiên quyết
 Chủ repo đã tạo sẵn project DevEco Studio kiểu Lite Wearable (JS) tại spikes/watch-lite-app/.
-- Nếu thư mục đó không có hoặc không có config.json: DỪNG, báo lại. Không tự dựng project.
-- Không sửa file build/cấu hình của DevEco, trừ khi phải khai báo trang mới trong config.json.
+- Template "[Lite]Empty Ability", FA model, deviceType liteWearable, bundle com.ltminh88.fitnav.
+- Cấu hình ở spikes/watch-lite-app/entry/src/main/config.json; code JS ở spikes/watch-lite-app/entry/src/main/js/MainAbility/ (đã có app.js và pages/index/).
+- Mọi đường dẫn common/... và pages/... bên dưới đều tính từ thư mục JS_ROOT = spikes/watch-lite-app/entry/src/main/js/MainAbility/.
+- Trang mới phải khai báo vào mảng module.js[0].pages trong config.json.
+- Nếu không có config.json hoặc deviceType không phải liteWearable: DỪNG, báo lại. Không tự dựng project.
+- Không sửa file build/cấu hình khác của DevEco (build-profile.json5, hvigor*, oh-package*).
 
 ## Việc cần làm (branch: spike/s1-canvas-map)
 1. common/route-codec.js
@@ -36,7 +40,7 @@ Chủ repo đã tạo sẵn project DevEco Studio kiểu Lite Wearable (JS) tạ
    - Thứ tự vẽ: đường phụ (xám, 3 px) → tuyến chính (màu nổi, 8 px) → chấm vị trí.
    - Animate heading tăng 10° mỗi giây bằng setInterval. Dừng interval ở onDestroy.
    - Góc màn hình in 3 số: thời gian vẽ khung gần nhất (ms), thời gian vẽ lớn nhất (ms), tổng số khung đã vẽ.
-5. pages/index: hai nút mở api-probe và map.
+5. pages/index (sửa trang có sẵn): hai nút mở api-probe và map.
 6. spikes/README.md: spike là gì, cách mở project trong DevEco, cách chạy trên simulator và trên đồng hồ thật.
 7. spikes/results/s1-canvas-map.md: mẫu để chủ repo điền.
    - Bảng API probe (simulator | máy thật).
