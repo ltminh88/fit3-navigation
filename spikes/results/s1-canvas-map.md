@@ -43,6 +43,12 @@ Lưu ý: một số probe thuộc tính có thể hiện `OK (readback=<giá tr�
 khi gán không ném lỗi nhưng đọc lại ra giá trị khác (vd. `#FF0000`
 thay vì `#ff0000`) — đó vẫn tính là OK, không phải FAIL.
 
+Lưu ý về fill: kiểm bằng mắt — có hình tròn tô kín cạnh chữ F hay
+không. Trên Previewer, hình tròn tô kín (arc + fill ở x=200) đã
+không hiện dù `fill()` không ném lỗi, nên dòng `fill: OK` chỉ có
+nghĩa là gọi được, chưa chứng minh là vẽ được; nhìn hình tròn cạnh
+chữ F trên canvas ở cuối trang mới biết fill có vẽ thật không.
+
 ## Số đo thời gian vẽ (trang Map)
 
 Đọc 3 số ở góc màn hình sau khi trang Map đã chạy một lúc. Vẽ 200 điểm
