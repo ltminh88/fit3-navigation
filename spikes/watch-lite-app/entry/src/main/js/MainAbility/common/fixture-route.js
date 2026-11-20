@@ -10,8 +10,11 @@
 //   (0,0) -> north 360 -> east 300 -> north 285 -> curve east/north
 //   150/150 -> east 360 -> south 315 -> east 240 -> north 390
 //   -> west 195 -> north 240, ending at (855, 1110).
-// Side roads: 8 roads crossing the main route, 2 points each,
-// given as absolute coordinates and encoded with route-codec.js.
+// Side roads: 13 roads crossing the main route, given as absolute
+// coordinates and encoded with route-codec.js. Each road has a level
+// ('major' or 'minor') in SIDE_ROAD_LEVELS, same order as
+// SIDE_ROADS_ABS; the S1b nav screen draws the road hierarchy from
+// it, the S1 map page ignores it (all side roads grey, 3 px).
 // All data is stored in the delta format of route-codec.js.
 
 import routeCodec from './route-codec.js';
@@ -32,7 +35,9 @@ var MAIN_LEGS = [
     [0, 240, 16]
 ];
 
-// Absolute coordinates of the 8 side roads (flat [x, y, x, y, ...]).
+// Absolute coordinates of the side roads (flat [x, y, x, y, ...]);
+// The first 8 are the original S1 roads; the last 5 were added for
+// S1b so the map looks less empty. Side roads may have 2-6 points.
 var SIDE_ROADS_ABS = [
     [-120, 180, 120, 180],
     [150, 240, 150, 480],
@@ -41,7 +46,18 @@ var SIDE_ROADS_ABS = [
     [600, 675, 600, 915],
     [690, 650, 930, 650],
     [1050, 360, 1050, 600],
-    [930, 750, 930, 990]
+    [930, 750, 930, 990],
+    [-240, 60, -60, 60, 60, 60],
+    [240, 120, 240, 300, 360, 300],
+    [480, 840, 720, 840, 720, 1020],
+    [840, 420, 840, 540],
+    [60, 900, 300, 900]
+];
+
+// 3 major roads, 10 minor roads (same order as SIDE_ROADS_ABS).
+var SIDE_ROAD_LEVELS = [
+    'major', 'minor', 'major', 'minor', 'minor', 'major',
+    'minor', 'minor', 'minor', 'minor', 'minor', 'minor', 'minor'
 ];
 
 function buildMainRoute() {
@@ -103,6 +119,7 @@ var sideRoadsDelta = buildSideRoads();
 export default {
     mainRouteDelta: mainRouteDelta,
     sideRoadsDelta: sideRoadsDelta,
+    sideRoadLevels: SIDE_ROAD_LEVELS,
     // 200 points: 1 start point + 199 steps (179 straight + 20 curve).
     mainPointCount: mainRouteDelta.length / 2,
     // Approximate total length in metres (straight legs 2685 m +
