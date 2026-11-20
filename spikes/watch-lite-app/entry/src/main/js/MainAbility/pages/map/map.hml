@@ -1,7 +1,7 @@
-<div class="container">
+<stack class="container">
     <canvas class="map-canvas" ref="mapCanvas" id="mapCanvas"></canvas>
     <div class="stats-bar">
         <text class="stats">{{statsText}}</text>
-        <button class="back-button" onclick="goBack">Quay lai</button>
+        <input type="button" value="Quay lai" onclick="goBack" class="back-button" />
     </div>
-</div>
+</stack>

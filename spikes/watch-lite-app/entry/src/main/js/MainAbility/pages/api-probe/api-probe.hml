@@ -2,6 +2,10 @@
     <text class="title">API Probe</text>
     <text class="summary">{{summaryText}}</text>
     <canvas class="probe-canvas" ref="probeCanvas" id="probeCanvas"></canvas>
-    <text class="results">{{resultsText}}</text>
-    <button class="back-button" onclick="goBack">Quay lai</button>
+    <list class="results-list">
+        <list-item for="{{results}}">
+            <text class="result-line">{{$item}}</text>
+        </list-item>
+    </list>
+    <input type="button" value="Quay lai" onclick="goBack" class="back-button" />
 </div>

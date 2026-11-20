@@ -1,5 +1,5 @@
 <div class="container">
     <text class="title">{{title}}</text>
-    <button class="menu-button" onclick="openProbe">API Probe</button>
-    <button class="menu-button" onclick="openMap">Ban do</button>
+    <input type="button" value="API Probe" onclick="openProbe" class="menu-button" />
+    <input type="button" value="Ban do" onclick="openMap" class="menu-button" />
 </div>
