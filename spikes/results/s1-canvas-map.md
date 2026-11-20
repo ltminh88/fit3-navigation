@@ -4,8 +4,8 @@ Mẫu kết quả để chủ repo điền sau khi chạy spike trên simulator 
 đồng hồ thật. Code spike: `spikes/watch-lite-app/`
 (trang `api-probe` và `map`, xem `spikes/README.md` để biết cách chạy).
 
-- Ngày chạy:
-- DevEco / SDK:
+- Ngày chạy: simulator 2026-11-20; máy thật: (chưa chạy)
+- DevEco / SDK: DevEco Studio 6.1.1, SDK API 24, Previewer liteWearable (mặt tròn, không phải khung chữ nhật của Fit 3)
 - Đồng hồ: Huawei Watch Fit 3, UDID đã đăng ký cert debug: (có / không)
 
 ## Bảng API probe
@@ -15,29 +15,29 @@ API Probe (trang này tự in kết quả, vì lite wearable khó xem log).
 
 | API | Simulator | Máy thật |
 | --- | --- | --- |
-| getContext('2d') | | |
-| beginPath | | |
-| moveTo | | |
-| lineTo | | |
-| stroke | | |
-| closePath | | |
-| lineWidth | | |
-| strokeStyle | | |
-| fillStyle | | |
-| lineCap | | |
-| lineJoin | | |
-| arc | | |
-| fill | | |
-| fillRect | | |
-| clearRect | | |
-| fillText | | |
-| font | | |
-| save/restore | | |
-| translate | | |
-| rotate | | |
-| drawImage (chỉ kiểm tra có hàm, không vẽ ảnh thật) | | |
+| getContext('2d') | OK | |
+| beginPath | OK | |
+| moveTo | OK | |
+| lineTo | OK | |
+| stroke | OK | |
+| closePath | OK | |
+| lineWidth | OK | |
+| strokeStyle | OK | |
+| fillStyle | OK | |
+| lineCap | OK | |
+| lineJoin | OK | |
+| arc | OK | |
+| fill | OK (gọi được, nhưng KHÔNG vẽ gì: không thấy hình tròn tô kín) | |
+| fillRect | OK | |
+| clearRect | FAIL TypeError | |
+| fillText | OK | |
+| font | OK | |
+| save/restore | OK | |
+| translate | OK | |
+| rotate | OK | |
+| drawImage (chỉ kiểm tra có hàm, không vẽ ảnh thật) | FAIL not a function | |
 
-Tổng OK: simulator __/21, máy thật __/21.
+Tổng OK: simulator 19/21, máy thật __/21.
 
 Lưu ý: một số probe thuộc tính có thể hiện `OK (readback=<giá trị>)`
 khi gán không ném lỗi nhưng đọc lại ra giá trị khác (vd. `#FF0000`
@@ -61,10 +61,10 @@ mượt nếu mắt thấy giật.
 
 | Số đo | Simulator | Máy thật |
 | --- | --- | --- |
-| Thời gian vẽ khung gần nhất (ms) | | |
+| Thời gian vẽ khung gần nhất (ms) | chưa đọc được (thanh số đo bị chữ trắng trên nền trắng) | |
 | Thời gian vẽ lớn nhất (ms) | | |
 | Tổng số khung đã vẽ | | |
-| Xoay có mượt ở 1 Hz không? (có / không, mô tả) | | |
+| Xoay có mượt ở 1 Hz không? (có / không, mô tả) | Có xoay đúng 10°/giây. Tuyến xanh 8 px ở góc chéo bị vẽ thành chuỗi chấm tròn (răng cưa); ở góc ngang/dọc thì liền nét | |
 | Đọc rõ khi giơ tay xem không? (có / không) | | |
 
 ## Chạy 10 phút có crash không
@@ -90,3 +90,7 @@ chạy 10 phút không crash.
 - Kết quả: (Pass / Pass một phần / Fail)
 - Nếu chỉ M2 (bản đồ dạng ảnh) mới chạy được thì ghi rõ ở đây.
 - Ghi chú khác:
+  - Simulator (2026-11-20): API vẽ đường đủ cho M1. `clearRect` không có (map dùng fillRect trắng thay thế).
+    `drawImage` không có → không làm được M2 (bản đồ ảnh) bằng canvas. `fill()` không vẽ gì → hình tô kín
+    phải dùng fillRect.
+  - Đường dày ở góc chéo bị vỡ thành chuỗi chấm trên simulator; cần xem trên máy thật.
