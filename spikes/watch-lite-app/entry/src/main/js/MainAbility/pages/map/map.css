@@ -1,0 +1,37 @@
+.container {
+  width: 480px;
+  height: 408px;
+  background-color: #ffffff;
+}
+.map-canvas {
+  width: 480px;
+  height: 408px;
+}
+.stats-bar {
+  width: 380px;
+  height: 44px;
+  margin-top: 50px;
+  margin-left: 50px;
+  flex-direction: row;
+  align-items: center;
+  background-color: #ffffff;
+}
+.stats {
+  width: 200px;
+  height: 36px;
+  font-size: 18px;
+  text-align: left;
+  color: #000000;
+}
+.w-button {
+  width: 60px;
+  height: 36px;
+  font-size: 18px;
+  color: #000000;
+}
+.back-button {
+  width: 100px;
+  height: 36px;
+  font-size: 18px;
+  color: #000000;
+}

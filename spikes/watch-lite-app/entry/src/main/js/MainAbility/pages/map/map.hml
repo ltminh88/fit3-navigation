@@ -1,0 +1,8 @@
+<stack class="container">
+    <canvas class="map-canvas" ref="mapCanvas" id="mapCanvas"></canvas>
+    <div class="stats-bar">
+        <text class="stats">{{statsText}}</text>
+        <input type="button" value="W" onclick="cycleWidth" class="w-button" />
+        <input type="button" value="Quay lai" onclick="goBack" class="back-button" />
+    </div>
+</stack>

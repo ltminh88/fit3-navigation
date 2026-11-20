@@ -1,0 +1,16 @@
+<div class="container">
+    <div class="top-spacer"></div>
+    <text class="summary">{{summaryText}}</text>
+    <text class="result-line">{{line0}}</text>
+    <text class="result-line">{{line1}}</text>
+    <text class="result-line">{{line2}}</text>
+    <text class="result-line">{{line3}}</text>
+    <text class="result-line">{{line4}}</text>
+    <text class="result-line">{{line5}}</text>
+    <div class="nav-row">
+        <input type="button" value="Truoc" onclick="prevPage" class="nav-button" />
+        <input type="button" value="Sau" onclick="nextPage" class="nav-button" />
+        <input type="button" value="Quay lai" onclick="goBack" class="nav-button" />
+    </div>
+    <canvas class="probe-canvas" ref="probeCanvas" id="probeCanvas"></canvas>
+</div>
