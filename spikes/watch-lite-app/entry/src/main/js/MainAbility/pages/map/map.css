@@ -17,13 +17,21 @@
   background-color: #ffffff;
 }
 .stats {
-  width: 260px;
+  width: 200px;
   height: 36px;
   font-size: 18px;
   text-align: left;
+  color: #000000;
+}
+.w-button {
+  width: 60px;
+  height: 36px;
+  font-size: 18px;
+  color: #000000;
 }
 .back-button {
   width: 100px;
   height: 36px;
   font-size: 18px;
+  color: #000000;
 }

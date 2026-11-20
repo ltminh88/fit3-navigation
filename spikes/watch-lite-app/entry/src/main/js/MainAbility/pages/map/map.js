@@ -1,27 +1,25 @@
 // map.js
 // S1 map spike: fixture route on a 480x408 canvas, heading-up. User
-// dot at (240, 290); fixed scale 1 px = 2 m. Coordinates are rotated
-// in JS with sin/cos; ctx.rotate is deliberately NOT used (phase 02).
-// A segment is skipped only when both ends are off screen on the SAME
-// side (both x < 0, both x > 480, both y < 0, or both y > 408); a
-// segment entering the screen moves to the previous (off-screen)
-// point first, then lines to the current point, so the entering part
-// is not lost. Draw order: side roads (grey, 3 px) -> main route
-// (blue, 8 px) -> user dot. Heading +10 degrees per second; the
-// interval stops in onDestroy. Stats bar: last frame ms, max ms,
-// frame count, shown compactly as "<last>ms max <max>ms #<count>"
-// so it fits the 380 px safe-area bar (50 px from top/left edges).
-// The user dot is drawn with a 16x16 fillRect first, then arc +
-// fill on top, so it stays visible even if fill() is a no-op
-// (on the Previewer the filled circle did not appear). No object is
-// are reused. The whole draw is in try/catch ('draw FAIL: <message>'
-// in the stats bar, keeping the count of frames drawn so far); the
-// user dot has its own try/catch so a missing arc/fill does not stop
-// the route from being drawn and measured. Note: Date.now() ms are
-// only the time JS takes to issue draw commands; lite may draw for
-// real after the function returns, so judge smoothness by eye too.
-// Assumptions (not verified on the real watch yet): the canvas is
-// reachable as this.$refs.mapCanvas (fallback $element('mapCanvas')).
+// dot at (240, 290); scale 1 px = 2 m. Coordinates are rotated in JS
+// with sin/cos; ctx.rotate is NOT used (phase 02). A segment is
+// skipped only when both ends are off screen on the SAME side; a
+// segment entering the screen moves to the previous point first, so
+// the entering part is not lost. Draw order: side roads (grey, 3 px)
+// -> main route (blue, starts at 8 px) -> user dot. Heading +10 deg
+// per second; interval stops in onDestroy. Stats bar shows last ms,
+// max ms, frame count and current width, compactly as
+// "<last>ms max <max>ms #<count> w<width>" (380 px safe-area bar,
+// 50 px from top/left). The "W" button cycles the main lineWidth
+// 8 -> 6 -> 4 -> 2 -> 8 and resets maxMs, so max is measured per
+// width. The dot is a 16x16 fillRect first, then arc + fill on top,
+// so it stays visible even if fill() is a no-op (on the Previewer
+// the filled circle did not appear). The whole draw is in try/catch
+// ('draw FAIL: <message>'); the dot has its own try/catch. Note:
+// Date.now() ms are only the time JS takes to issue draw commands;
+// lite may draw for real after the function returns, so judge
+// smoothness by eye too. Assumption: canvas is this.$refs.mapCanvas
+// (fallback $element('mapCanvas')), not verified on the real watch.
+
 
 import routeCodec from '../../common/route-codec.js';
 import fixtureRoute from '../../common/fixture-route.js';
@@ -33,6 +31,8 @@ var SCREEN_WIDTH = 480;
 var SCREEN_HEIGHT = 408;
 // 1 px = 2 m, so metres are halved to get pixels.
 var METRES_PER_PIXEL = 2;
+// Main-route lineWidths cycled by the "W" button (task-04 test).
+var WIDTHS = [8, 6, 4, 2];
 
 // True only when both points are off screen on the same side.
 function sameSideOutside(ax, ay, bx, by) {
@@ -41,13 +41,7 @@ function sameSideOutside(ax, ay, bx, by) {
 }
 
 function drawPolyline(abs, ctx, cosH, sinH) {
-    var i;
-    var x;
-    var y;
-    var sx;
-    var sy;
-    var prevSx;
-    var prevSy;
+    var i, x, y, sx, sy, prevSx, prevSy;
     var needMove = true;
     ctx.beginPath();
     for (i = 0; i < abs.length; i += 2) {
@@ -76,11 +70,12 @@ export default {
         statsText: 'Dang ve...'
     },
     onInit() {
-        var i;
-        var decoded;
+        var i, decoded;
         this.mainAbs = [];
         this.sideAbsList = [];
         this.heading = 0;
+        this.widthIndex = 0;
+        this.lineWidth = WIDTHS[0];
         this.lastMs = 0;
         this.maxMs = 0;
         this.frameCount = 0;
@@ -128,19 +123,11 @@ export default {
         }, 1000);
     },
     onDestroy() {
-        if (this.timer !== null) {
-            clearInterval(this.timer);
-            this.timer = null;
-        }
+        if (this.timer !== null) { clearInterval(this.timer); this.timer = null; }
     },
     drawFrame() {
         var ctx = this.ctx;
-        var startMs;
-        var elapsed;
-        var rad;
-        var cosH;
-        var sinH;
-        var i;
+        var startMs, elapsed, rad, cosH, sinH, i;
         if (ctx === null || ctx === undefined) {
             return;
         }
@@ -160,7 +147,7 @@ export default {
             for (i = 0; i < this.sideAbsList.length; i++) {
                 drawPolyline(this.sideAbsList[i], ctx, cosH, sinH);
             }
-            ctx.strokeStyle = '#1e88e5'; ctx.lineWidth = 8;
+            ctx.strokeStyle = '#1e88e5'; ctx.lineWidth = this.lineWidth;
             drawPolyline(this.mainAbs, ctx, cosH, sinH);
             // Fallback dot first: a filled 16x16 square centred on the
             // user position, so the dot shows even if fill() is a no-op.
@@ -187,7 +174,14 @@ export default {
             this.maxMs = elapsed;
         }
         this.frameCount++;
-        this.statsText = this.lastMs + 'ms max ' + this.maxMs + 'ms #' + this.frameCount;
+        this.statsText = this.lastMs + 'ms max ' + this.maxMs + 'ms #' +
+            this.frameCount + ' w' + this.lineWidth;
+    },
+    cycleWidth() {
+        this.widthIndex = (this.widthIndex + 1) % WIDTHS.length;
+        this.lineWidth = WIDTHS[this.widthIndex];
+        this.maxMs = 0;
+        this.drawFrame();
     },
     goBack() {
         // router.replace is the Lite-capable navigation API; push/back
