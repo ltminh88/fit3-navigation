@@ -28,3 +28,7 @@ oh_modules/
 node_modules/
 entry/build/
 local.properties
+# >>> tkm managed
+.claude/skills/tkm
+.claude/rules/tkm
+# <<< tkm managed
