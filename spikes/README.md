@@ -25,6 +25,10 @@ Code nằm trong project DevEco có sẵn ở `watch-lite-app/`:
   in thời gian vẽ khung gần nhất, lớn nhất và tổng số khung.
 - Trang `index` có hai nút mở hai trang trên.
 
+Lưu ý về số đo thời gian: số ms ở trang Map đo bằng `Date.now()`
+chỉ là thời gian JS gửi lệnh vẽ; lite có thể vẽ thật sau khi hàm
+trả về, nên phải đánh giá thêm bằng mắt (xoay có giật/xé hình không).
+
 Kết quả điền vào `results/s1-canvas-map.md`.
 
 ## Mở project trong DevEco Studio
