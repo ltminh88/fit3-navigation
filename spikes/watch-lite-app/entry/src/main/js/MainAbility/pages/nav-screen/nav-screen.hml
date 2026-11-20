@@ -1,0 +1,13 @@
+<stack class="container">
+    <canvas class="map-canvas" ref="mapCanvas" id="mapCanvas"></canvas>
+    <div class="top-overlay">
+        <text class="clock">{{clockText}}</text>
+    </div>
+    <div class="bottom-bar" onclick="goHome">
+        <div class="turn-row">
+            <canvas class="turn-canvas" ref="turnCanvas" id="turnCanvas"></canvas>
+            <text class="distance">{{distanceText}}</text>
+        </div>
+        <text class="instruction">{{instructionText}}</text>
+    </div>
+</stack>

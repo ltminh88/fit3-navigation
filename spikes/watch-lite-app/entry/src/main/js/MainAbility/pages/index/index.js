@@ -1,5 +1,5 @@
 // index.js
-// S1 spike home page: two buttons, one per probe page.
+// Spike home page: three buttons, one per page.
 // Navigation uses router.replace, the Lite-capable API in
 // @system.router (push/back are SystemCapability.ArkUI.Full only).
 // The page URIs match the entries in entry/src/main/config.json
@@ -19,6 +19,11 @@ export default {
     openMap() {
         router.replace({
             uri: 'pages/map/map'
+        });
+    },
+    openNav() {
+        router.replace({
+            uri: 'pages/nav-screen/nav-screen'
         });
     }
 };

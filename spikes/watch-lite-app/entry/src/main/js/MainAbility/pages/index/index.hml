@@ -2,4 +2,5 @@
     <text class="title">{{title}}</text>
     <input type="button" value="API Probe" onclick="openProbe" class="menu-button" />
     <input type="button" value="Ban do" onclick="openMap" class="menu-button" />
+    <input type="button" value="Dan duong" onclick="openNav" class="menu-button" />
 </div>

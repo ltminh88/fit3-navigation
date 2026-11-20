@@ -23,13 +23,43 @@ Code nằm trong project DevEco có sẵn ở `watch-lite-app/`:
   trí ở (240, 290), tỉ lệ 1 px = 2 m, xoay heading-up bằng sin/cos trong
   JS (không dùng `ctx.rotate`), heading tăng 10° mỗi giây, góc màn hình
   in thời gian vẽ khung gần nhất, lớn nhất và tổng số khung.
-- Trang `index` có hai nút mở hai trang trên.
+- Trang `index` có ba nút mở ba trang trên.
 
 Lưu ý về số đo thời gian: số ms ở trang Map đo bằng `Date.now()`
 chỉ là thời gian JS gửi lệnh vẽ; lite có thể vẽ thật sau khi hàm
 trả về, nên phải đánh giá thêm bằng mắt (xoay có giật/xé hình không).
 
 Kết quả điền vào `results/s1-canvas-map.md`.
+
+## S1b — Màn hình dẫn đường mẫu (trang nav-screen)
+
+Câu hỏi: với các API canvas đã đo được trên Previewer (không `fill()`,
+không `clearRect`, không `drawImage`, đường tối đa 6 px), màn hình dẫn
+đường trên Fit 3 có thể đẹp ngang app dẫn đường thương mại không?
+
+Code thêm trong spike S1b:
+
+- `common/map-draw-helpers.js` — phần vẽ dùng chung tách ra từ trang
+  Map (chiếu toạ độ, cắt đoạn cùng phía, vẽ polyline, vẽ đĩa tròn
+  bằng arc + stroke); trang Map import lại, không copy code.
+- `common/fixture-route.js` — 13 đường phụ (3 đường lớn, 10 đường nhỏ)
+  với cấp đường `sideRoadLevels`; tuyến chính giữ nguyên 200 điểm.
+- `common/fixture-guidance.js` — 5 bước hướng dẫn giả (tên đường tiếng
+  Việt có dấu, tốc độ giới hạn, tốc độ hiện tại, khoảng cách tới biển
+  kế tiếp); trang nav-screen chuyển bước mỗi 3 giây, khoảng cách giảm
+  mỗi giây, heading xoay 10°/giây như spike S1.
+- `pages/nav-screen/` — canvas 480×408: nền be `#F2EFE9`, đường lớn
+  viền cam `#E8A33D` lõi vàng `#F9D56E`, đường nhỏ viền xám lõi trắng,
+  tuyến chính xanh `#2F7CF6` 6 px, chấm vị trí xanh viền trắng ở
+  (240, 200), tên đường `Phạm Văn Đồng` góc trên phải, giờ `HH:MM`
+  góc trên giữa, biển tốc độ góc trên trái, khung đen 130 px dưới
+  đáy với icon rẽ (canvas 56×56 riêng), khoảng cách vàng 38 px và
+  tên đường chỉ dẫn trắng 26 px.
+
+Thoát trang nav-screen: **chạm 1 lần vào khung đen dưới đáy** (không
+có nút riêng) — trang sẽ về trang chủ. Trang này cũng là phép thử
+font của lite: xem dấu tiếng Việt và cỡ chữ 38/26 px có hiện đúng
+không trên Previewer/máy thật.
 
 ## Mở project trong DevEco Studio
 
