@@ -16,6 +16,7 @@
 // boxes still show FAKE data (fixture-guidance).
 
 import fixtureRealMap from '../../common/fixture-real-map.js';
+import mapThemeColors from '../../common/map-theme-colors.js';
 import fixtureGuidance from '../../common/fixture-guidance.js';
 import mapDrawHelpers from '../../common/map-draw-helpers.js';
 import routeFollowSimulator from '../../common/route-follow-simulator.js';
@@ -29,11 +30,8 @@ var SCREEN_WIDTH = 480;
 var SCREEN_HEIGHT = 408;
 // Nav-screen scale: 1 px = 1 m (the S1 map page keeps 1 px = 2 m).
 var METRES_PER_PIXEL = 1;
-var BG = '#F2EFE9';
-var ROUTE_BLUE = '#2F7CF6';
-// Road hierarchy: [border color, border width, core color, core width].
-var MAJOR_ROAD = ['#E8A33D', 6, '#F9D56E', 4];
-var MINOR_ROAD = ['#DADADA', 5, '#FFFFFF', 3];
+// Map colours live in common/map-theme-colors.js (S1d contrast fix:
+// minor border #B9B4AA, major border #D98E2B / core #F7C948).
 var VERBS = { left: 'Rẽ trái vào ', right: 'Rẽ phải vào ', uturn: 'Quay đầu vào ' };
 var BIKE_SPEED_MPS = 8;
 var CAR_SPEED_MPS = 10;
@@ -155,7 +153,7 @@ export default {
         if (ctx === null || ctx === undefined) { return; }
         startMs = Date.now();
         try {
-            ctx.fillStyle = BG;
+            ctx.fillStyle = mapThemeColors.BG;
             ctx.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
             rad = this.sim.heading * Math.PI / 180;
             cosH = Math.cos(rad); sinH = Math.sin(rad);
@@ -165,24 +163,24 @@ export default {
                 this.sideAbsList.length, this.sim.posX, this.sim.posY,
                 FILTER_RADIUS_M, this.visibleRoads);
             mapDrawHelpers.drawRoads(this.sideAbsList, this.sideLevels, this.visibleRoads, ctx, cosH, sinH,
-                USER_X, USER_Y, METRES_PER_PIXEL, this.sim.posX, this.sim.posY, MAJOR_ROAD, MINOR_ROAD);
+                USER_X, USER_Y, METRES_PER_PIXEL, this.sim.posX, this.sim.posY);
             // Remaining route only, starting at the current position.
             routeFollowSimulator.remainingAbs(this.sim, this.remainingAbs);
-            ctx.strokeStyle = ROUTE_BLUE; ctx.lineWidth = 6;
+            ctx.strokeStyle = mapThemeColors.ROUTE_BLUE; ctx.lineWidth = 6;
             mapDrawHelpers.drawPolyline(this.remainingAbs, ctx, cosH, sinH, USER_X, USER_Y, METRES_PER_PIXEL, this.sim.posX, this.sim.posY);
             mapDrawHelpers.drawDisc(ctx, USER_X, USER_Y, 12, '#FFFFFF');
-            mapDrawHelpers.drawDisc(ctx, USER_X, USER_Y, 9, ROUTE_BLUE);
+            mapDrawHelpers.drawDisc(ctx, USER_X, USER_Y, 9, mapThemeColors.ROUTE_BLUE);
             // Current street, top right, below the clock: right-aligned
             // by estimated width (~11 px per character at 20 px, no
             // measureText on lite), never past the 44 px safe margin.
-            ctx.fillStyle = '#555555';
+            ctx.fillStyle = mapThemeColors.STREET_NAME;
             name = this.currentStreetName;
             nameX = 440 - name.length * 11;
             if (nameX < 44) { nameX = 44; }
             mapDrawHelpers.drawTextTop(ctx, name, nameX, 92, 20);
             navHud.drawSpeedSign(ctx, this.currentStep.speedLimit, this.speedKmh, this.currentStep.nextLimitDistanceM);
             this.lastMs = Date.now() - startMs;
-            ctx.fillStyle = '#999999'; mapDrawHelpers.drawTextTop(ctx, this.lastMs + 'ms ' + this.drawnRoads + 'r', 44, 252, 16);
+            ctx.fillStyle = mapThemeColors.MS_TEXT; mapDrawHelpers.drawTextTop(ctx, this.lastMs + 'ms ' + this.drawnRoads + 'r', 44, 252, 16);
         } catch (e) {
             // A failed draw keeps the previous frame; nothing to show.
         }
