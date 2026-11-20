@@ -31,7 +31,9 @@
     "js": [
       {
         "pages": [
-          "pages/index/index"
+          "pages/index/index",
+          "pages/api-probe/api-probe",
+          "pages/map/map"
         ],
         "name": ".MainAbility"
       }

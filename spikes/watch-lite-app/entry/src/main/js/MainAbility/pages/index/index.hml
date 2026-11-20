@@ -1,5 +1,5 @@
 <div class="container">
-    <text class="title">
-        {{ $t('strings.hello') }} {{ title }}
-    </text>
+    <text class="title">{{title}}</text>
+    <button class="menu-button" onclick="openProbe">API Probe</button>
+    <button class="menu-button" onclick="openMap">Ban do</button>
 </div>

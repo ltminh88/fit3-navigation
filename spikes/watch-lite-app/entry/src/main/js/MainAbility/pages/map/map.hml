@@ -1,0 +1,7 @@
+<div class="container">
+    <canvas class="map-canvas" ref="mapCanvas" id="mapCanvas"></canvas>
+    <div class="stats-bar">
+        <text class="stats">{{statsText}}</text>
+        <button class="back-button" onclick="goBack">Quay lai</button>
+    </div>
+</div>

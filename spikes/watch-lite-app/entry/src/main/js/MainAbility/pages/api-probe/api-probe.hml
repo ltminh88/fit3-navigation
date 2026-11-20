@@ -1,0 +1,7 @@
+<div class="container">
+    <text class="title">API Probe</text>
+    <text class="summary">{{summaryText}}</text>
+    <canvas class="probe-canvas" ref="probeCanvas" id="probeCanvas"></canvas>
+    <text class="results">{{resultsText}}</text>
+    <button class="back-button" onclick="goBack">Quay lai</button>
+</div>
