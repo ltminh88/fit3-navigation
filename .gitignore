@@ -1,0 +1,30 @@
+# Local AI-kit config (not part of the project)
+.claude/
+.takumi/
+
+# Signing material & secrets — NEVER commit
+*.p12
+*.p7b
+*.cer
+*.csr
+*.mobileprovision
+agconnect-services.*
+*.env
+.env*
+
+# macOS
+.DS_Store
+
+# Xcode
+xcuserdata/
+DerivedData/
+*.xcuserstate
+build/
+
+# DevEco / HarmonyOS
+.hvigor/
+.idea/
+oh_modules/
+node_modules/
+entry/build/
+local.properties
