@@ -20,6 +20,9 @@ xcuserdata/
 DerivedData/
 *.xcuserstate
 build/
+*.ipa
+*.dSYM.zip
+*.xcarchive
 
 # DevEco / HarmonyOS
 .hvigor/
