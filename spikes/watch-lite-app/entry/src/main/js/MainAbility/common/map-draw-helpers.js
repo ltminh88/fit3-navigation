@@ -14,6 +14,8 @@
 // yTop = boxTop + (h - f) / 2. Always draw text through drawTextTop
 // below, never call fillText directly, so the rule stays in one place.
 
+import mapThemeColors from './map-theme-colors.js';
+
 var SCREEN_WIDTH = 480;
 var SCREEN_HEIGHT = 408;
 
@@ -111,9 +113,12 @@ function turnDiffDeg(from, to) {
 // position of the map origin, mapOriginX/mapOriginY the map point
 // shown there.
 // indices is the list of road indexes to draw (null = all roads).
+// majorStyle/minorStyle default to the map theme when not given.
 function drawRoads(roads, levels, indices, ctx, cosH, sinH, originX, originY,
     metresPerPixel, mapOriginX, mapOriginY, majorStyle, minorStyle) {
     var i, k, style;
+    if (majorStyle === null || majorStyle === undefined) { majorStyle = mapThemeColors.MAJOR_ROAD; }
+    if (minorStyle === null || minorStyle === undefined) { minorStyle = mapThemeColors.MINOR_ROAD; }
     for (k = 0; k < (indices === null ? roads.length : indices.length); k++) {
         i = indices === null ? k : indices[k];
         style = levels[i] === 'major' ? majorStyle : minorStyle;
